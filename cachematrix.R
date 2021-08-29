@@ -4,6 +4,7 @@
 
 makeCacheMatrix <- function(x = matrix()) {
         inv <- NULL
+        ## Matrix inverse set to NULL because the matrix contents are changed
         setmat <- function(y){
                 x <<- y
                 inv <<- NULL
@@ -13,6 +14,7 @@ makeCacheMatrix <- function(x = matrix()) {
                 inv <<- inverse
         }
         getinv <- function() inv
+        ## Returning functions as a list
         list(setmat = setmat, getmat = getmat, setinv = setinv, getinv = getinv)
 }
 
@@ -22,12 +24,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ## It is assumed that the matrix is invertible
 
 cacheSolve <- function(x, ...) {
+        ## Retrieving cached matrix inverse
         inv <- x$getinv()
+        ## Checking if matrix inverse has been computed earlier
         if(!is.null(inv)){
                 message("Getting cached data.")
                 return(inv)
         }
+        ## Retrieving cached matrix
         mat <- x$getmat()
+        ## Calculating matrix inverse
         inv <- solve(mat)
         x$setinv(inv)
         return(inv)
