@@ -22,12 +22,12 @@ makeCacheMatrix <- function(x = matrix()) {
 ## It is assumed that the matrix is invertible
 
 cacheSolve <- function(x, ...) {
-        inv <- x$getinv
+        inv <- x$getinv()
         if(!is.null(inv)){
                 message("Getting cached data.")
                 return(inv)
         }
-        mat <- x$getmat
+        mat <- x$getmat()
         inv <- solve(mat)
         x$setinv(inv)
         return(inv)
